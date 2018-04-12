@@ -1,0 +1,12 @@
+{
+  "name": "multipoint-tdc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "serialport": "^6.0.4"
+  }
+}
