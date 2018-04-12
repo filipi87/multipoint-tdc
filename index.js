@@ -8,6 +8,12 @@
 
         constructor(){
             this.serialPortConnected = false;
+            this.load();
+        }
+
+        load(){
+            this.remotesAllowed = new Set();
+            this.remotesAllowed.add("IDSA000100000001001011110001");
         }
 
         connect(usbPort){
@@ -25,7 +31,7 @@
 
         addEventListeners(){
             this.port.on('open', function() {
-              console.log('opened connection!');
+              console.log('Conexão aberta!');
               this.serialPortConnected = true;
             }.bind(this));
 
@@ -49,10 +55,14 @@
         }
 
         onReceiveData(data){
-            console.log('Received =>', data);
+            console.log('Recebido =>', data);
             //Não emite mais os eventos das respostas que contem caracteres inválidos
             if(this.containsOnlyValidCharacters(data)){
-                //TODO fazer a validação se está autorizado
+                if(this.remotesAllowed.has(data)){
+                    console.log('ACESSO PERMITIDO!');
+                }else{
+                    console.log('ACESSO NEGADO!');
+                }
             }else{
                 console.log('Desconsiderado dado por conter caracteres inválidos!');
             }
